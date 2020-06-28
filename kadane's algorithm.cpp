@@ -1,40 +1,40 @@
 //modified kadane's algorithm. works for both +ve and -ve values and also for all -ve values.
+
 #include<bits/stdc++.h>
 
 using namespace std;
 
-vector<int> solve(vector<int> a)
+vector<int> solve(vector<int> arr)
 {
-    vector<int> res(3,-1);          // stores max sum, start index, end index
-    int msf = INT_MIN , meh = 0;    // msf - max so far, meh - max ending here
-    int n = 0, m = 0;               // n - start index, m = end index
-    
-    for(int i=0;i<a.size();i++)
-    {
-        meh += a[i];
-        if(a[i]>meh)
-        {
-            meh = a[i];
-            if(msf<meh) n = i;      // dry run {-1,-2,-3,-4} for understanding this check.
+    vector<int> res(3,-1);
+    int max = arr[0], start = 0, end = 0, mstart = 0, mend = 0, currmax = arr[0];
+        for (int i = 1; i < arr.size(); i++) {
+            if (  currmax < 0 ) {
+                currmax = arr[i];
+                start = i;
+                end = i;
+            } else {
+                currmax = currmax + arr[i];
+                end = i;
+            }
+
+            if (currmax > max) {
+                max = currmax;
+                mstart = start;
+                mend = end;
+            }
         }
 
-        if(msf<meh)
-        {
-            msf = meh;
-            m = i;
-        }
-    }
-
-    res[0] = msf;
-    res[1] = n;
-    res[2] = m;
+    res[0] = max;
+    res[1] = mstart;
+    res[2] = mend;
 
     return res;
 }
 
 int main()
 {
-    vector<int> arr = {1,1,3,-4,5};
+    vector<int> arr = {5,-8,1,2,3};
     vector<int> res = solve(arr);
     cout << "sum: " << res[0] << " from: " << res[1] << " to: " << res[2] << "\n";
 }
