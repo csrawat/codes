@@ -2,6 +2,8 @@
 
 using namespace std;
 
+
+// function to find max sum subarray in 1D matrix using kadane's algorithm in O(n).
 vector<int> max_sum_subarray(vector<int> a)
 {
     vector<int> res(3,-1);
@@ -49,13 +51,15 @@ int main()
                 {-8,9,-3,3,-7}
             };
 
-        int n = a.size();
-        int m = a[0].size();
+        int n = a.size();       //rows
+        int m = a[0].size();    //cols
 
 
         int left_index=0,right_index=0,up_index=0,down_index=0,max_sum=a[0][0];
 
-        vector<int> res(3);
+        vector<int> res(3);     // stores the result from max_sum_subarray function (max_sum,start_index,end_index)
+    
+        
         for(int i=0;i<m;i++)
         {
             vector<int> row_sum(n,0);
